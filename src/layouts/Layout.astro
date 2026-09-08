@@ -1,0 +1,91 @@
+---
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/jetbrains-mono/400.css';
+import '@fontsource/space-grotesk/500.css';
+import '@fontsource/space-grotesk/600.css';
+import '@fontsource/space-grotesk/700.css';
+
+import '../styles/global.css';
+
+type Props = {
+  title?: string;
+  description?: string;
+  canonicalUrl?: string;
+};
+
+const {
+  title = 'Kirshway | Viktor Nemets',
+  description = 'Viktor Nemets / Kirshway. Frontend and full-stack developer. Projects, tools, and a few moments along the way.',
+  canonicalUrl,
+} = Astro.props;
+
+const canonical = canonicalUrl ?? new URL(Astro.url.pathname, Astro.site).href;
+const socialImage = new URL(
+  `${import.meta.env.BASE_URL}og-image.png`,
+  Astro.site
+).href;
+const socialImageAlt =
+  'Kirshway wordmark with a purple dot on a dark grid background';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script is:inline>
+      (() => {
+        const themeStorageKey = 'kirshway-theme';
+        const textureStorageKey = 'kirshway-texture';
+        const themes = ['dark', 'light'];
+        const textures = ['clean', 'scanlines'];
+        const root = document.documentElement;
+
+        root.dataset.theme = window.matchMedia('(prefers-color-scheme: light)')
+          .matches
+          ? 'light'
+          : 'dark';
+        root.dataset.texture = 'clean';
+
+        try {
+          const storedTheme = window.localStorage.getItem(themeStorageKey);
+          const storedTexture = window.localStorage.getItem(textureStorageKey);
+          if (themes.includes(storedTheme)) root.dataset.theme = storedTheme;
+          if (textures.includes(storedTexture))
+            root.dataset.texture = storedTexture;
+        } catch {}
+      })();
+    </script>
+    <meta name="viewport" content="width=device-width" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href={`${import.meta.env.BASE_URL}favicon.svg`}
+    />
+    <link rel="icon" href={`${import.meta.env.BASE_URL}favicon.ico`} />
+    <link rel="canonical" href={canonical} />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={socialImageAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImage} />
+    <meta name="twitter:image:alt" content={socialImageAlt} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+    <script>
+      import '../scripts/theme-toggle';
+    </script>
+  </body>
+</html>

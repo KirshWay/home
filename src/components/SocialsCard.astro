@@ -1,0 +1,71 @@
+---
+import GitHubIcon from '../assets/icons/github.svg';
+import LinkedInIcon from '../assets/icons/linkedin.svg';
+
+import MosaicCard from './MosaicCard.astro';
+
+import type { ContactLink } from '../types/site';
+
+type Props = {
+  links: ContactLink[];
+  class?: string;
+};
+
+const { links, class: className = '' } = Astro.props;
+
+const icons = {
+  github: GitHubIcon,
+  linkedin: LinkedInIcon,
+};
+
+const getSocialLabel = (link: ContactLink) => {
+  if (link.icon === 'github') return 'Open Viktor Nemets on GitHub';
+  if (link.icon === 'linkedin') return 'Open Viktor Nemets on LinkedIn';
+
+  return `Open ${link.label}`;
+};
+---
+
+<MosaicCard label="elsewhere" class={className}>
+  <div class="grid grid-cols-1 gap-3">
+    {
+      links.map((link) => {
+        const Icon =
+          (link.icon === 'github' || link.icon === 'linkedin') &&
+          icons[link.icon];
+
+        return (
+          <a
+            class="group flex min-h-16 items-center justify-between border border-grid bg-background px-4 font-heading text-base font-semibold text-text-primary transition-colors hover:border-accent hover:text-accent focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-accent"
+            href={link.href}
+            aria-label={getSocialLabel(link)}
+            {...(link.href.startsWith('http') && {
+              target: '_blank',
+              rel: 'noreferrer',
+            })}
+          >
+            <span class="social-label">
+              <span>{link.label}</span>
+              {link.description && (
+                <span class="social-description">{link.description}</span>
+              )}
+            </span>
+            {Icon ? (
+              <Icon
+                class="size-5 text-text-tertiary transition-colors group-hover:text-accent"
+                aria-hidden="true"
+              />
+            ) : (
+              <span
+                class="font-mono text-sm text-text-tertiary transition-colors group-hover:text-accent"
+                aria-hidden="true"
+              >
+                -&gt;
+              </span>
+            )}
+          </a>
+        );
+      })
+    }
+  </div>
+</MosaicCard>

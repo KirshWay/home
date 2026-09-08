@@ -1,0 +1,60 @@
+---
+import { Picture } from 'astro:assets';
+import { moments } from '../data/moments';
+---
+
+<section
+  class="tile photo-card"
+  aria-roledescription="carousel"
+  aria-label="Snapshots"
+  data-moments-gallery
+>
+  <div class="photo-slides" tabindex="0" role="group" aria-label="Photos">
+    {
+      moments.map((photo, index) => (
+        <div
+          class="photo-slide"
+          role="group"
+          aria-roledescription="slide"
+          aria-label={`${index + 1} of ${moments.length}`}
+        >
+          <Picture
+            src={photo.src}
+            alt={photo.alt}
+            width={960}
+            formats={['avif', 'webp']}
+            widths={[480, 720, 960]}
+            sizes="(min-width: 1100px) 540px, (min-width: 640px) 50vw, 100vw"
+            loading={index === 0 ? 'eager' : 'lazy'}
+          />
+        </div>
+      ))
+    }
+  </div>
+  <div class="photo-caption">
+    <div>
+      <span class="eyebrow">Outside the editor</span><h2>Little moments.</h2>
+    </div>
+    <div class="photo-controls" data-photo-controls hidden>
+      <button
+        type="button"
+        class="icon-button"
+        data-step="-1"
+        aria-label="Previous photo">←</button
+      >
+      <span class="photo-count" aria-live="polite" aria-atomic="true"
+        >1 / {moments.length}</span
+      >
+      <button
+        type="button"
+        class="icon-button"
+        data-step="1"
+        aria-label="Next photo">→</button
+      >
+    </div>
+  </div>
+</section>
+
+<script>
+  import '../scripts/moments-gallery';
+</script>

@@ -1,0 +1,28 @@
+---
+import type { ImageMetadata } from 'astro';
+import AsciiPortrait from './AsciiPortrait.astro';
+import { profile } from '../data/site';
+
+type Props = {
+  portrait: ImageMetadata;
+};
+
+const { portrait } = Astro.props;
+---
+
+<section class="identity-card tile" aria-label="Introduction">
+  <div class="identity-photo">
+    <AsciiPortrait
+      src={portrait}
+      alt="Illustrated portrait of Viktor Nemets"
+      fit="contain"
+    />
+    <span class="photo-note" aria-hidden="true">a face behind the code</span>
+  </div>
+  <div class="identity-copy">
+    <span class="eyebrow">Hello, I'm</span>
+    <h1 class="identity-name">{profile.name}<span>/ {profile.handle}</span></h1>
+    <p class="identity-role">{profile.title}</p>
+    <p class="body-copy">{profile.intro}</p>
+  </div>
+</section>

@@ -1,0 +1,53 @@
+---
+import EyeOffIcon from '../assets/icons/eye-off.svg';
+import EyeIcon from '../assets/icons/eye.svg';
+import MoonIcon from '../assets/icons/moon.svg';
+import SunIcon from '../assets/icons/sun.svg';
+
+import MosaicCard from './MosaicCard.astro';
+
+type Props = {
+  class?: string;
+};
+
+const { class: className = '' } = Astro.props;
+---
+
+<MosaicCard label="theme" class={`appearance-card ${className}`}>
+  <div class="appearance-controls">
+    <button
+      type="button"
+      class="theme-toggle group"
+      data-theme-toggle
+      data-theme-state="dark"
+      aria-label="Toggle theme"
+      aria-pressed="false"
+    >
+      <span class="theme-toggle__thumb" aria-hidden="true">
+        <span class="theme-toggle__icon theme-toggle__icon--sun">
+          <SunIcon class="size-5" />
+        </span>
+        <span class="theme-toggle__icon theme-toggle__icon--moon">
+          <MoonIcon class="size-5" />
+        </span>
+      </span>
+    </button>
+
+    <button
+      type="button"
+      class="texture-toggle group"
+      data-texture-toggle
+      data-texture-state="clean"
+      aria-label="Toggle scanlines"
+      aria-pressed="false"
+    >
+      <span class="texture-toggle__indicator" aria-hidden="true"></span>
+      <span class="texture-toggle__icon texture-toggle__icon--eye">
+        <EyeIcon class="size-5" />
+      </span>
+      <span class="texture-toggle__icon texture-toggle__icon--eye-off">
+        <EyeOffIcon class="size-5" />
+      </span>
+    </button>
+  </div>
+</MosaicCard>

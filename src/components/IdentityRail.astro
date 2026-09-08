@@ -1,0 +1,13 @@
+---
+import illustration from '../assets/images/portrait-ascii.png';
+import IdentityCard from './IdentityCard.astro';
+import ContactCard from './ContactCard.astro';
+import ThemeToggle from './ThemeToggle.astro';
+import { profile } from '../data/site';
+---
+
+<aside class="identity-rail">
+  <IdentityCard portrait={illustration} />
+  <ContactCard contacts={profile.contacts} />
+  <ThemeToggle />
+</aside>

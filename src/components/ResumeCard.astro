@@ -1,0 +1,23 @@
+---
+import { resume } from '../data/site';
+---
+
+<section id="cv" tabindex="-1" class="tile resume-card card-pad">
+  <div class="card-heading">
+    <span class="eyebrow">Work & CV</span>
+  </div>
+  <div>
+    <h2>A little background.</h2>
+    <p class="body-copy">
+      Currently a {resume.role}<br />at <strong>{resume.company}</strong>.
+    </p>
+  </div>
+  <div class="card-links">
+    <a class="text-link" href={resume.href} target="_blank" rel="noreferrer"
+      >View CV <span aria-hidden="true">↗</span></a
+    >
+    <a class="quiet-link" href={resume.href} download
+      >Download PDF <span aria-hidden="true">↓</span></a
+    >
+  </div>
+</section>

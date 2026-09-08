@@ -1,0 +1,66 @@
+---
+import TypeScriptIcon from '../assets/icons/tools/typescript.svg';
+import ReactIcon from '../assets/icons/tools/react.svg';
+import NodeIcon from '../assets/icons/tools/node.svg';
+import VueIcon from '../assets/icons/tools/vue.svg';
+import PythonIcon from '../assets/icons/tools/python.svg';
+import CodexIcon from '../assets/icons/tools/codex.svg';
+import ClaudeCodeIcon from '../assets/icons/tools/claude-code.svg';
+import AgentIcon from '../assets/icons/tools/ai-agent.svg';
+import McpIcon from '../assets/icons/tools/mcp.svg';
+import type { UsesGroup } from '../types/site';
+
+type Props = { groups: UsesGroup[]; class?: string };
+const { groups, class: className = '' } = Astro.props;
+
+const icons = {
+  typescript: TypeScriptIcon,
+  react: ReactIcon,
+  node: NodeIcon,
+  vue: VueIcon,
+  python: PythonIcon,
+  codex: CodexIcon,
+  'claude-code': ClaudeCodeIcon,
+  'ai-agent': AgentIcon,
+  mcp: McpIcon,
+};
+---
+
+<section
+  id="uses"
+  tabindex="-1"
+  class:list={['tile card-pad uses-card', className]}
+>
+  <span class="eyebrow">On my desk, digitally</span>
+  <h2>Tools I reach for.</h2>
+  <div class="uses-columns">
+    {
+      groups.map((group) => (
+        <section>
+          <>
+            <h3>{group.label}</h3>
+            <ul>
+              {group.items.map((item) => {
+                const Icon = item.icon && icons[item.icon];
+                return (
+                  <li>
+                    {Icon && (
+                      <Icon
+                        class="uses-icon"
+                        width="20"
+                        height="20"
+                        aria-hidden="true"
+                        focusable="false"
+                      />
+                    )}
+                    <span>{item.label}</span>
+                  </li>
+                );
+              })}
+            </ul>
+          </>
+        </section>
+      ))
+    }
+  </div>
+</section>

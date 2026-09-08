@@ -1,0 +1,13 @@
+---
+type Props = { label?: string; class?: string; id?: string | null };
+const { label, class: className = '', id } = Astro.props;
+---
+
+<section
+  id={id}
+  tabindex={id ? -1 : null}
+  class:list={['tile card-pad', className]}
+>
+  {label && <span class="eyebrow">{label}</span>}
+  <slot />
+</section>

@@ -1,0 +1,70 @@
+---
+import EmailIcon from '../assets/icons/email.svg';
+import TelegramIcon from '../assets/icons/telegram.svg';
+
+import MosaicCard from './MosaicCard.astro';
+
+import type { ContactLink } from '../types/site';
+
+type Props = {
+  contacts: ContactLink[];
+  cardId?: string | null;
+  class?: string;
+};
+
+const { contacts, cardId = 'contact', class: className = '' } = Astro.props;
+
+const icons = {
+  email: EmailIcon,
+  telegram: TelegramIcon,
+};
+
+const getContactLabel = (contact: ContactLink) => {
+  if (contact.icon === 'email') return 'Send email to Viktor Nemets';
+  if (contact.icon === 'telegram')
+    return 'Open Telegram chat with Viktor Nemets';
+
+  return `Open ${contact.label}`;
+};
+---
+
+<MosaicCard
+  label="contact"
+  class:list={['flex flex-col justify-between', className]}
+  id={cardId}
+>
+  <h2 class="font-heading text-2xl font-semibold text-text-primary">
+    Let&apos;s talk.
+  </h2>
+  <div class="mt-8 flex flex-col gap-4">
+    {
+      contacts.map((contact) => {
+        const Icon =
+          (contact.icon === 'email' || contact.icon === 'telegram') &&
+          icons[contact.icon];
+
+        return (
+          <a
+            class="group flex justify-between gap-5 font-mono text-xs uppercase tracking-widest text-text-secondary transition-colors hover:text-accent focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-accent"
+            href={contact.href}
+            aria-label={getContactLabel(contact)}
+            {...(contact.href.startsWith('http') && {
+              target: '_blank',
+              rel: 'noreferrer',
+            })}
+          >
+            <span>[{contact.label}]</span>
+            {Icon ? (
+              <Icon
+                class="size-4 shrink-0 text-text-tertiary transition-colors group-hover:text-accent"
+                aria-hidden="true"
+              />
+            ) : (
+              <span aria-hidden="true">-&gt;</span>
+            )}
+          </a>
+        );
+      })
+    }
+  </div>
+</MosaicCard>

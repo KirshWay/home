@@ -1,0 +1,69 @@
+---
+import Header from '../components/Header.astro';
+import IdentityRail from '../components/IdentityRail.astro';
+import MomentsGallery from '../components/MomentsGallery.astro';
+import ResumeCard from '../components/ResumeCard.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import SocialsCard from '../components/SocialsCard.astro';
+import UsesCard from '../components/UsesCard.astro';
+import { profile, projects, socials, usesGroups } from '../data/site';
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout>
+  <Header />
+  <div id="top" class="page-shell">
+    <IdentityRail />
+    <main id="main" tabindex="-1" class="main-mosaic">
+      <ResumeCard />
+      <MomentsGallery />
+      <section id="now" class="tile now-card card-pad">
+        <span class="eyebrow"
+          ><span class="status-dot" aria-hidden="true"></span> Now</span
+        >
+        <p>{profile.currentFocus}</p>
+      </section>
+      <section
+        id="projects"
+        tabindex="-1"
+        class="projects-section"
+        aria-label="Projects"
+      >
+        <div class="section-heading">
+          <h2>Things I've made</h2>
+        </div>
+        <div class="projects-grid">
+          {
+            projects.map((project, index) => (
+              <ProjectCard project={project} index={index} />
+            ))
+          }
+        </div>
+      </section>
+      <UsesCard groups={usesGroups} />
+      <SocialsCard links={socials} class="elsewhere-card" />
+    </main>
+  </div>
+  <footer class="site-footer">
+    <span>Viktor Nemets / Kirshway</span><a class="quiet-link" href="#top"
+      >Back to top ↑</a
+    >
+  </footer>
+</Layout>
+
+<script>
+  const dot = document.querySelector<HTMLElement>('#now .status-dot');
+  if (dot) {
+    // Play once on arrival, so mobile visitors see it after scrolling to Now.
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          dot.setAttribute('data-pulse', '');
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '-80px 0px 0px', threshold: 1 }
+    );
+    observer.observe(dot);
+  }
+</script>

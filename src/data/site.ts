@@ -70,6 +70,7 @@ export const usesGroups: UsesGroup[] = [
     label: 'Working with AI',
     items: [
       { label: 'Codex', icon: 'codex' },
+      { label: 'OpenCode', icon: 'opencode' },
       { label: 'Claude Code', icon: 'claude-code' },
       { label: 'Custom agent skills', icon: 'ai-agent' },
       { label: 'MCP integrations', icon: 'mcp' },

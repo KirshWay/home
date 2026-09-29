@@ -44,6 +44,7 @@ export type UsesItem = {
     | 'vue'
     | 'python'
     | 'codex'
+    | 'opencode'
     | 'claude-code'
     | 'ai-agent'
     | 'mcp';

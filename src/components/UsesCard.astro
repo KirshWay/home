@@ -36,33 +36,31 @@ const icons = {
   <span class="eyebrow">On my desk, digitally</span>
   <h2>Tools I reach for.</h2>
   <div class="uses-columns">
-    {
-      groups.map((group) => (
-        <section>
-          <>
-            <h3>{group.label}</h3>
-            <ul>
-              {group.items.map((item) => {
-                const Icon = item.icon && icons[item.icon];
-                return (
-                  <li>
-                    {Icon && (
-                      <Icon
-                        class="uses-icon"
-                        width="20"
-                        height="20"
-                        aria-hidden="true"
-                        focusable="false"
-                      />
-                    )}
-                    <span>{item.label}</span>
-                  </li>
-                );
-              })}
-            </ul>
-          </>
-        </section>
-      ))
-    }
+    {groups.map((group) => (
+      <section>
+        <>
+          <h3>{group.label}</h3>
+          <ul>
+            {group.items.map((item) => {
+              const Icon = item.icon && icons[item.icon];
+              return (
+                <li>
+                  {Icon && (
+                    <Icon
+                      class="uses-icon"
+                      width="20"
+                      height="20"
+                      aria-hidden="true"
+                      focusable="false"
+                    />
+                  )}
+                  <span>{item.label}</span>
+                </li>
+              );
+            })}
+          </ul>
+        </>
+      </section>
+    ))}
   </div>
 </section>

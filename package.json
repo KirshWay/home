@@ -34,7 +34,7 @@
     "oxlint": "1.90.0",
     "prettier": "3.9.10",
     "prettier-plugin-astro": "1.1.2",
-    "typescript": "7.0.2"
+    "typescript": "6.0.3"
   },
   "packageManager": "pnpm@12.16.1"
 }

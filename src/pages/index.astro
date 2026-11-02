@@ -18,9 +18,9 @@ import Layout from '../layouts/Layout.astro';
       <ResumeCard />
       <MomentsGallery />
       <section id="now" class="tile now-card card-pad">
-        <span class="eyebrow"
-          ><span class="status-dot" aria-hidden="true"></span> Now</span
-        >
+        <span class="eyebrow">
+          <span class="status-dot" aria-hidden="true"></span> Now
+        </span>
         <p>{profile.currentFocus}</p>
       </section>
       <section
@@ -33,11 +33,9 @@ import Layout from '../layouts/Layout.astro';
           <h2>Things I've made</h2>
         </div>
         <div class="projects-grid">
-          {
-            projects.map((project, index) => (
-              <ProjectCard project={project} index={index} />
-            ))
-          }
+          {projects.map((project, index) => (
+            <ProjectCard project={project} index={index} />
+          ))}
         </div>
       </section>
       <UsesCard groups={usesGroups} />
@@ -45,9 +43,10 @@ import Layout from '../layouts/Layout.astro';
     </main>
   </div>
   <footer class="site-footer">
-    <span>Viktor Nemets / Kirshway</span><a class="quiet-link" href="#top"
-      >Back to top ↑</a
-    >
+    <span>Viktor Nemets / Kirshway</span>
+    <a class="quiet-link" href="#top">
+      Back to top ↑
+    </a>
   </footer>
 </Layout>
 
